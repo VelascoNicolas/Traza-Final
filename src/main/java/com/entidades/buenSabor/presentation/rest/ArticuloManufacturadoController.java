@@ -9,6 +9,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 //import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -36,21 +37,21 @@ public class ArticuloManufacturadoController  {
     }
 
     @PostMapping()
-    //@PreAuthorize("hasAnyAuthority('ADMIN')")
+    @PreAuthorize("hasAnyAuthority('ADMIN')")
     public ResponseEntity<ArticuloManufacturadoDto> create(@RequestBody ArticuloManufacturadoDto entity){
         logger.info("INICIO CREATE {}",entity.getClass());
         return ResponseEntity.ok(articuloManufacturadoFacade.createNew(entity));
     }
 
     @PutMapping("/{id}")
-    //@PreAuthorize("hasAnyAuthority('ADMIN', 'COCINERO')")
+    @PreAuthorize("hasAnyAuthority('ADMIN', 'COCINERO')")
     public ResponseEntity<ArticuloManufacturadoDto> edit(@RequestBody ArticuloManufacturadoDto entity, @PathVariable Long id){
         logger.info("INICIO EDIT {}",entity.getClass());
         return ResponseEntity.ok(articuloManufacturadoFacade.update(entity, id));
     }
 
     @DeleteMapping("/{id}")
-    //@PreAuthorize("hasAnyAuthority('ADMIN')")
+    @PreAuthorize("hasAnyAuthority('ADMIN')")
     public ResponseEntity<?> deleteById(@PathVariable Long id){
         logger.info("INICIO DELETE BY Long");
         return ResponseEntity.ok(articuloManufacturadoFacade.deleteById(id));

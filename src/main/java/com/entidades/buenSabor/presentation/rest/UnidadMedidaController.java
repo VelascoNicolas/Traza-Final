@@ -10,6 +10,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 //import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -27,14 +28,14 @@ public class UnidadMedidaController extends BaseControllerImp<UnidadMedida, Unid
 
     @PostMapping
     @Override
-  //  @PreAuthorize("hasAnyAuthority('ADMIN')")
+    @PreAuthorize("hasAnyAuthority('ADMIN')")
     public ResponseEntity<UnidadMedidaDto> create(UnidadMedidaDto entity){
         return super.create(entity);
     }
 
     @PutMapping("/{id}")
     @Override
-    //@PreAuthorize("hasAnyAuthority('EMPLEADO','ADMIN')")
+    @PreAuthorize("hasAnyAuthority('EMPLEADO','ADMIN')")
     public ResponseEntity<UnidadMedidaDto> edit(UnidadMedidaDto edit, Long id){
         return super.edit(edit,id);
     }

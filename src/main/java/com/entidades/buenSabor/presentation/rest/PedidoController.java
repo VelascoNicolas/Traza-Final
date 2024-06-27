@@ -14,6 +14,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 //import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
@@ -77,7 +78,7 @@ public class PedidoController {
     }
 
     @PutMapping("/{id}")
-  //  @PreAuthorize("hasAnyAuthority('CAJERO')")
+    @PreAuthorize("hasAnyAuthority('CAJERO')")
     public ResponseEntity<?> agregarFactura(@PathVariable Long id) {
         try {
             pedidoService.agregarFactura(id);
@@ -99,7 +100,7 @@ public class PedidoController {
     }
 
     @PatchMapping("/{id}")
-    //@PreAuthorize("hasAnyAuthority('ADMIN', 'CAJERO', 'COCINERO', 'DELIVERY')")
+    @PreAuthorize("hasAnyAuthority('ADMIN', 'CAJERO', 'COCINERO', 'DELIVERY')")
     public ResponseEntity<?> actualizarPedido(@PathVariable Long id, @RequestBody Estado estado) throws IOException {
         try {
             return ResponseEntity.status(HttpStatus.OK).body(pedidoService.actualizarEstado(id, estado));
@@ -118,7 +119,7 @@ public class PedidoController {
     }
 
     @GetMapping("/estado")
-    //@PreAuthorize("hasAnyAuthority('ADMIN', 'CAJERO', 'COCINERO', 'DELIVERY')")
+    @PreAuthorize("hasAnyAuthority('ADMIN', 'CAJERO', 'COCINERO', 'DELIVERY')")
     public ResponseEntity<?> getPedidosByEstado(@RequestBody Estado estado) {
         try {
             return ResponseEntity.status(HttpStatus.OK).body(pedidoService.getPedidosByEstado(estado));

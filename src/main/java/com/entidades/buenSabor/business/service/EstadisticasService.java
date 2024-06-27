@@ -13,10 +13,10 @@ public interface EstadisticasService {
     List<IngresosMenusales> ingresosMensuales(Date initialDate, Date endDate);
     GananciasNetas findCostosGananciasByFecha(Date initialDate, Date endDate);
     List<PedidosCliente> findCantidadPedidosPorCliente(Date startDate, Date endDate);
-   // byte[] rankingExcel(Date fechaDesde, Date fechaHasta) throws IOException;
-    //byte[] ingresosDiariosExcel(Date fechaDesde, Date fechaHasta) throws IOException;
-    //byte[] ingresosMensualesExcel(Date fechaDesde, Date fechaHasta) throws IOException;
-    //byte[] gananciasNetasExcel(Date fechaDesde, Date fechaHasta) throws IOException;
+    byte[] rankingExcel(Date fechaDesde, Date fechaHasta) throws IOException;
+    byte[] ingresosDiariosExcel(Date fechaDesde, Date fechaHasta) throws IOException;
+    byte[] ingresosMensualesExcel(Date fechaDesde, Date fechaHasta) throws IOException;
+    byte[] gananciasNetasExcel(Date fechaDesde, Date fechaHasta) throws IOException;
     byte[] cantidadPedidosPorClienteExcel(Date fechaDesde, Date fechaHasta) throws IOException;
     byte[] generarReporteExcel(Date fechaDesde, Date fechaHasta) throws IOException;
 

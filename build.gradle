@@ -94,10 +94,3 @@ tasks.jar {
 bootJar {
 	enabled=true
 }
-sourceSets {
-	main {
-		resources {
-			srcDir 'src/main/resources/template'
-		}
-	}
-}

@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 //import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -45,7 +46,7 @@ public class EmpleadoController {
     }
 
     @PostMapping
-    //@PreAuthorize("hasAnyAuthority('ADMIN')")
+    @PreAuthorize("hasAnyAuthority('ADMIN')")
     public ResponseEntity<?> createEmpleado(@RequestBody EmpleadoDTO empleadoDTO) {
         try {
             return ResponseEntity.status(HttpStatus.OK).body(empleadoFacade.createNew(empleadoDTO));
@@ -56,7 +57,7 @@ public class EmpleadoController {
     }
 
     @GetMapping("/sucursal/{id}")
-    //@PreAuthorize("hasAnyAuthority('ADMIN')")
+    @PreAuthorize("hasAnyAuthority('ADMIN')")
     public ResponseEntity<?> getEmpleadoBySucursalId(@PathVariable Long id) {
         try {
             return ResponseEntity.status(HttpStatus.OK).body(empleadoFacade.getBySucursalId(id));
@@ -67,7 +68,7 @@ public class EmpleadoController {
     }
 
     @PutMapping("/{id}")
-    //@PreAuthorize("hasAnyAuthority('ADMIN')")
+    @PreAuthorize("hasAnyAuthority('ADMIN')")
     public ResponseEntity<?> updateEmpleado(@PathVariable Long id, @RequestBody EmpleadoDTO empleadoDTO) {
         try {
             return ResponseEntity.status(HttpStatus.OK).body(empleadoFacade.update(empleadoDTO, id));

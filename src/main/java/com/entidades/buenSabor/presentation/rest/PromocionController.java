@@ -5,6 +5,7 @@ import com.entidades.buenSabor.domain.dto.PromocionDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 //import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -30,13 +31,13 @@ public class PromocionController {
     }
 
     @PostMapping
-    //@PreAuthorize("hasAnyAuthority('ADMIN')")
+    @PreAuthorize("hasAnyAuthority('ADMIN')")
     public ResponseEntity<?> guardarPromocion(@RequestBody PromocionDto dto) {
         return ResponseEntity.ok().body(promocionService.save(dto));
     }
 
     @PutMapping("/{id}")
-    //@PreAuthorize("hasAnyAuthority('ADMIN')")
+    @PreAuthorize("hasAnyAuthority('ADMIN')")
     public ResponseEntity<?> actualizarPromocion(@RequestBody PromocionDto dto, @PathVariable Long id, @RequestParam LocalDate fechaActual) {
         return ResponseEntity.ok().body(promocionService.editarPromocion(dto, id, fechaActual));
     }

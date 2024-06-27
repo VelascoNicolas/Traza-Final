@@ -9,6 +9,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 //import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -35,21 +36,21 @@ public class CategoriaController {
     }
 
     @PostMapping("/padre")
-    //@PreAuthorize("hasAnyAuthority('ADMIN')")
+    @PreAuthorize("hasAnyAuthority('ADMIN')")
     public ResponseEntity<?> createCategoria(@RequestBody CategoriaPadreDto categoriaPadreDto) {
         logger.info("INICIO CREATE {}", categoriaPadreDto.getClass());
         return ResponseEntity.ok(categoriaFacade.postCategoria(categoriaPadreDto));
     }
 
     @PostMapping("/hijo/{idCategoriaPadre}")
-    //@PreAuthorize("hasAnyAuthority('ADMIN')")
+    @PreAuthorize("hasAnyAuthority('ADMIN')")
     public ResponseEntity<?> createCategoriaHijo(@PathVariable Long idCategoriaPadre, @RequestBody CategoriaHijoDto categoriaHijoDto) {
         logger.info("INICIO CREATE {}", categoriaHijoDto.getClass());
         return ResponseEntity.ok(categoriaFacade.postCategoriaHijo(idCategoriaPadre, categoriaHijoDto));
     }
 
     @DeleteMapping("/{id}")
-    //@PreAuthorize("hasAnyAuthority('ADMIN')")
+    @PreAuthorize("hasAnyAuthority('ADMIN')")
     public ResponseEntity<?> deleteCategoria(@PathVariable Long id) {
         logger.info("INICIO DELETE BY Long");
         return ResponseEntity.ok(categoriaFacade.deleteByID(id));
@@ -68,14 +69,14 @@ public class CategoriaController {
     }
 
     @PutMapping("/padre/{id}")
-    //@PreAuthorize("hasAnyAuthority('ADMIN')")
+    @PreAuthorize("hasAnyAuthority('ADMIN')")
     public ResponseEntity<?> updateCategoria(@PathVariable Long id, @RequestBody CategoriaPadreDto categoriaPadreDto) {
         logger.info("INICIO UPDATE CATEGORIA PADRE");
         return ResponseEntity.ok(categoriaFacade.putPadre(id, categoriaPadreDto));
     }
 
     @PutMapping("hijo/{id}")
-    //@PreAuthorize("hasAnyAuthority('ADMIN')")
+    @PreAuthorize("hasAnyAuthority('ADMIN')")
     public ResponseEntity<?> updateCategoriaHijo(@PathVariable Long id, @RequestBody CategoriaHijoDto categoriaHijoDto) {
         logger.info("INICIO UPDATE CATEGORIA HIJO");
         return ResponseEntity.ok(categoriaFacade.putCategoria(id, categoriaHijoDto));

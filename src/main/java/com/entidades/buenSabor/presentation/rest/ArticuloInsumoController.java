@@ -11,6 +11,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -37,19 +38,21 @@ public class ArticuloInsumoController  {
     }
 
     @PostMapping()
-    //@PreAuthorize("hasAnyAuthority('ADMIN')")
+    @PreAuthorize("hasAnyAuthority('ADMIN')")
     public ResponseEntity<ArticuloInsumoDto> create(@RequestBody ArticuloInsumoDto entity){
         logger.info("INICIO CREATE {}",entity.getClass());
         return ResponseEntity.ok(articuloInsumoFacade.createNew(entity));
     }
 
     @PutMapping("/{id}")
+    @PreAuthorize("hasAnyAuthority('ADMIN')")
     public ResponseEntity<ArticuloInsumoDto> edit(@RequestBody ArticuloInsumoDto entity, @PathVariable Long id){
         logger.info("INICIO EDIT {}",entity.getClass());
         return ResponseEntity.ok(articuloInsumoFacade.update(entity, id));
     }
 
     @DeleteMapping("/{id}")
+    @PreAuthorize("hasAnyAuthority('ADMIN')")
     public ResponseEntity<?> deleteById(@PathVariable Long id){
         logger.info("INICIO DELETE BY Long");
         return ResponseEntity.ok(articuloInsumoFacade.deleteById(id));
@@ -63,6 +66,7 @@ public class ArticuloInsumoController  {
 
 
     @GetMapping("/elaborados")
+    @PreAuthorize("hasAnyAuthority('ADMIN', 'COCINERO')")
     public ResponseEntity<List<?>> getElaborados() {
         logger.info("INICIO GET ELABORADOS");
         return ResponseEntity.ok(articuloInsumoFacade.getElaborados());
