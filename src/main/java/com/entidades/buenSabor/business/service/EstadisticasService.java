@@ -18,6 +18,4 @@ public interface EstadisticasService {
     byte[] ingresosMensualesExcel(Date fechaDesde, Date fechaHasta) throws IOException;
     byte[] gananciasNetasExcel(Date fechaDesde, Date fechaHasta) throws IOException;
     byte[] cantidadPedidosPorClienteExcel(Date fechaDesde, Date fechaHasta) throws IOException;
-    byte[] generarReporteExcel(Date fechaDesde, Date fechaHasta) throws IOException;
-
 }
