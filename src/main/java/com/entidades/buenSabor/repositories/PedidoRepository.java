@@ -35,7 +35,7 @@ public interface PedidoRepository extends BaseRepository<Pedido,Long>{
             "    p.FECHA_PEDIDO\n" +
             "ORDER BY \n" +
             "    p.FECHA_PEDIDO;\n", nativeQuery = true)
-    List<IngresosDiarios> ingresosDiarios(LocalDate initialDate, LocalDate endDate);
+    List<IngresosDiarios> ingresosDiarios(Date initialDate, Date endDate);
 
     @Query(value = "SELECT \n" +
             "    EXTRACT(YEAR FROM p.FECHA_PEDIDO) AS Año,\n" +
@@ -51,7 +51,7 @@ public interface PedidoRepository extends BaseRepository<Pedido,Long>{
             "    EXTRACT(YEAR FROM p.FECHA_PEDIDO), EXTRACT(MONTH FROM p.FECHA_PEDIDO)\n" +
             "ORDER BY \n" +
             "    Año, Mes;\n", nativeQuery = true)
-    List<IngresosMenusales> ingresosMenusales(LocalDate initialDate, LocalDate endDate);
+    List<IngresosMenusales> ingresosMenusales(Date initialDate, Date endDate);
 
     @Query(value = "SELECT \n" +
             "    c.USER_NAME AS Email,\n" +
@@ -66,9 +66,9 @@ public interface PedidoRepository extends BaseRepository<Pedido,Long>{
             "    c.USER_NAME, c.NOMBRE, c.APELLIDO, p.FECHA_PEDIDO\n" +
             "ORDER BY \n" +
             "    c.USER_NAME, p.FECHA_PEDIDO;\n", nativeQuery = true)
-    List<PedidosCliente> pedidosCliente(LocalDate initialDate, LocalDate endDate);
+    List<PedidosCliente> pedidosCliente(Date initialDate, Date endDate);
 
     @Query(value = "SELECT CAST(sum(total) as DECIMAL(10, 2) )as Ganancias  , sum(total_costo)as Costo, sum(total - total_costo) as \"Resultado\"\n" +
             "from pedido WHERE FECHA_PEDIDO BETWEEN '2024-06-01' AND '2024-06-30'", nativeQuery = true)
-    GananciasNetas gananciasNetas(LocalDate initialDate, LocalDate endDate);
+    GananciasNetas gananciasNetas(Date initialDate, Date endDate);
 }

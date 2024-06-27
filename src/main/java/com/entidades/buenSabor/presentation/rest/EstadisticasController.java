@@ -32,35 +32,35 @@ public class EstadisticasController {
     @GetMapping("/recaudacionesDiarias")
     //@PreAuthorize("hasAnyAuthority('ADMIN')")
     public ResponseEntity<?> recaudacionesDiarias (
-            @RequestParam("fechaDesde") @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate fechaDesde,
-            @RequestParam("fechaHasta") @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate fechaHasta){
+            @RequestParam("fechaDesde") @DateTimeFormat(pattern = "yyyy-MM-dd") Date fechaDesde,
+            @RequestParam("fechaHasta") @DateTimeFormat(pattern = "yyyy-MM-dd") Date fechaHasta){
         return ResponseEntity.ok(service.ingresosDiarios(fechaDesde, fechaHasta));
     }
 
     @GetMapping("/recaudacionesMensuales")
     //@PreAuthorize("hasAnyAuthority('ADMIN')")
     public ResponseEntity<?> recaudacionesMensuales (
-            @RequestParam("fechaDesde") @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate fechaDesde,
-            @RequestParam("fechaHasta") @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate fechaHasta){
+            @RequestParam("fechaDesde") @DateTimeFormat(pattern = "yyyy-MM-dd") Date fechaDesde,
+            @RequestParam("fechaHasta") @DateTimeFormat(pattern = "yyyy-MM-dd") Date fechaHasta){
         return ResponseEntity.ok(service.ingresosMensuales(fechaDesde, fechaHasta));
     }
 
     @GetMapping("/costosGanancias")
     //@PreAuthorize("hasAnyAuthority('ADMIN')")
     public ResponseEntity<?> costosGanancias (
-            @RequestParam("fechaDesde") @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate fechaDesde,
-            @RequestParam("fechaHasta") @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate fechaHasta){
+            @RequestParam("fechaDesde") @DateTimeFormat(pattern = "yyyy-MM-dd") Date fechaDesde,
+            @RequestParam("fechaHasta") @DateTimeFormat(pattern = "yyyy-MM-dd") Date fechaHasta){
         return ResponseEntity.ok(service.findCostosGananciasByFecha(fechaDesde, fechaHasta));
     }
 
     @GetMapping("/pedidosCliente")
     //@PreAuthorize("hasAnyAuthority('ADMIN')")
     public ResponseEntity<?> pedidosCliente (
-            @RequestParam("fechaDesde") @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate fechaDesde,
-            @RequestParam("fechaHasta") @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate fechaHasta){
+            @RequestParam("fechaDesde") @DateTimeFormat(pattern = "yyyy-MM-dd") Date fechaDesde,
+            @RequestParam("fechaHasta") @DateTimeFormat(pattern = "yyyy-MM-dd") Date fechaHasta){
         return ResponseEntity.ok(service.findCantidadPedidosPorCliente(fechaDesde, fechaHasta));
     }
-
+/*
     @GetMapping("/excelRanking")
     public ResponseEntity<?> excelRanking (
             @RequestParam("fechaDesde") @DateTimeFormat(pattern = "yyyy-MM-dd") Date fechaDesde,
@@ -123,15 +123,30 @@ public class EstadisticasController {
                 .headers(headers)
                 .body(excelContent);
     }
-
+*/
     @GetMapping("/excelPedidos")
-    public ResponseEntity<?> excel (
-            @RequestParam("fechaDesde") @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate fechaDesde,
-            @RequestParam("fechaHasta") @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate fechaHasta) throws IOException {
+    public ResponseEntity<byte[]> excelPedidos (
+            @RequestParam("fechaDesde") @DateTimeFormat(pattern = "yyyy-MM-dd") Date fechaDesde,
+            @RequestParam("fechaHasta") @DateTimeFormat(pattern = "yyyy-MM-dd") Date fechaHasta) throws IOException {
         byte[] excelContent = service.cantidadPedidosPorClienteExcel(fechaDesde, fechaHasta);
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_OCTET_STREAM);
         headers.set(HttpHeaders.CONTENT_DISPOSITION,"attachment;filename=estadisticasPedidos.xls");
+        headers.setContentLength(excelContent.length);
+
+        return ResponseEntity.ok()
+                .headers(headers)
+                .body(excelContent);
+    }
+
+    @GetMapping("/excel")
+    public ResponseEntity<?> excel (
+            @RequestParam("fechaDesde") @DateTimeFormat(pattern = "yyyy-MM-dd") Date fechaDesde,
+            @RequestParam("fechaHasta") @DateTimeFormat(pattern = "yyyy-MM-dd") Date fechaHasta) throws IOException {
+        byte[] excelContent = service.generarReporteExcel(fechaDesde, fechaHasta);
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_OCTET_STREAM);
+        headers.set(HttpHeaders.CONTENT_DISPOSITION,"attachment;filename=estadisticas.xls");
         headers.setContentLength(excelContent.length);
 
         return ResponseEntity.ok()

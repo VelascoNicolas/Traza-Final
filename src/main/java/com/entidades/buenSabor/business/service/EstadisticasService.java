@@ -9,13 +9,15 @@ import java.util.List;
 
 public interface EstadisticasService {
     List<RankingProductos> bestProducts(Date initialDate, Date endDate);
-    List<IngresosDiarios> ingresosDiarios(LocalDate initialDate, LocalDate endDate);
-    List<IngresosMenusales> ingresosMensuales(LocalDate initialDate, LocalDate endDate);
-    GananciasNetas findCostosGananciasByFecha(LocalDate initialDate, LocalDate endDate);
-    List<PedidosCliente> findCantidadPedidosPorCliente(LocalDate startDate, LocalDate endDate);
-    byte[] rankingExcel(Date fechaDesde, Date fechaHasta) throws IOException;
-    byte[] ingresosDiariosExcel(LocalDate fechaDesde, LocalDate fechaHasta) throws IOException;
-    byte[] ingresosMensualesExcel(LocalDate fechaDesde, LocalDate fechaHasta) throws IOException;
-    byte[] gananciasNetasExcel(LocalDate fechaDesde, LocalDate fechaHasta) throws IOException;
-    byte[] cantidadPedidosPorClienteExcel(LocalDate fechaDesde, LocalDate fechaHasta) throws IOException;
+    List<IngresosDiarios> ingresosDiarios(Date initialDate, Date endDate);
+    List<IngresosMenusales> ingresosMensuales(Date initialDate, Date endDate);
+    GananciasNetas findCostosGananciasByFecha(Date initialDate, Date endDate);
+    List<PedidosCliente> findCantidadPedidosPorCliente(Date startDate, Date endDate);
+   // byte[] rankingExcel(Date fechaDesde, Date fechaHasta) throws IOException;
+    //byte[] ingresosDiariosExcel(Date fechaDesde, Date fechaHasta) throws IOException;
+    //byte[] ingresosMensualesExcel(Date fechaDesde, Date fechaHasta) throws IOException;
+    //byte[] gananciasNetasExcel(Date fechaDesde, Date fechaHasta) throws IOException;
+    byte[] cantidadPedidosPorClienteExcel(Date fechaDesde, Date fechaHasta) throws IOException;
+    byte[] generarReporteExcel(Date fechaDesde, Date fechaHasta) throws IOException;
+
 }
